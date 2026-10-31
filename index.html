@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ali Qasim | علي قاسم</title>
+<meta name="description" content="Portfolio of Ali Qasim, Computer Science & IT graduate building backend systems, APIs and automation. | بورتفوليو علي قاسم، مطوّر Backend وأنظمة.">
+<meta name="theme-color" content="#070000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060000; --bg2: #0b0102; --card: rgba(24,6,8,.55); --line: rgba(255,255,255,.08);
+    --text: #f6eded; --muted: #b9a0a2; --accent: #e50914; --accent2: #ff3b3b; --deep: #b30012;
+    --glow: 0 0 40px rgba(229,9,20,.35);
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: "Inter", "Cairo", system-ui, sans-serif; line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  html[lang="ar"] body { font-family: "Cairo", "Inter", system-ui, sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: #fff; }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #050000; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(var(--accent), var(--deep)); border-radius: 10px; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 2; }
+
+  [data-ar] { display: none; }
+  html[lang="ar"] [data-ar] { display: revert; }
+  html[lang="ar"] [data-en] { display: none; }
+
+  /* ===== living background ===== */
+  #bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .aurora i { position: absolute; border-radius: 50%; filter: blur(110px); opacity: .5; mix-blend-mode: screen; will-change: transform; }
+  .aurora i:nth-child(1) { width: 55vmax; height: 55vmax; background: radial-gradient(circle, #e50914, transparent 65%); top: -20vmax; left: -15vmax; animation: drift1 26s ease-in-out infinite alternate; }
+  .aurora i:nth-child(2) { width: 45vmax; height: 45vmax; background: radial-gradient(circle, #7a0010, transparent 65%); bottom: -15vmax; right: -10vmax; animation: drift2 32s ease-in-out infinite alternate; }
+  .aurora i:nth-child(3) { width: 30vmax; height: 30vmax; background: radial-gradient(circle, #ff3b3b66, transparent 65%); top: 40%; left: 45%; animation: drift3 38s ease-in-out infinite alternate; }
+  @keyframes drift1 { to { transform: translate(25vmax, 18vmax) scale(1.2); } }
+  @keyframes drift2 { to { transform: translate(-22vmax, -16vmax) scale(1.15); } }
+  @keyframes drift3 { to { transform: translate(-30vmax, 12vmax) scale(.8); } }
+  .grain { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .06; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .vignette { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.75) 100%); }
+  .cursor-glow { position: fixed; width: 460px; height: 460px; margin: -230px 0 0 -230px; border-radius: 50%; z-index: 1; pointer-events: none; background: radial-gradient(circle, rgba(229,9,20,.18), transparent 65%); transition: opacity .3s; will-change: transform; }
+
+  /* progress bar */
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 100; background: linear-gradient(90deg, var(--deep), var(--accent2), #fff); box-shadow: 0 0 12px var(--accent); }
+  html[dir="rtl"] #progress { left: auto; right: 0; }
+
+  /* preloader */
+  #loader { position: fixed; inset: 0; z-index: 200; background: #050000; display: grid; place-items: center; transition: opacity .7s var(--ease), visibility .7s; }
+  #loader.done { opacity: 0; visibility: hidden; }
+  #loader .ring { width: 74px; height: 74px; border-radius: 50%; border: 3px solid rgba(229,9,20,.2); border-top-color: var(--accent); animation: spin 1s linear infinite; box-shadow: var(--glow); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ===== nav ===== */
+  nav { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 50; width: min(1060px, calc(100% - 28px)); border-radius: 18px; background: rgba(14,3,4,.55); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); border: 1px solid var(--line); transition: background .3s, box-shadow .3s; }
+  nav.scrolled { background: rgba(8,1,2,.85); box-shadow: 0 10px 40px rgba(0,0,0,.6), 0 0 0 1px rgba(229,9,20,.15); }
+  nav .in { display: flex; justify-content: space-between; align-items: center; height: 58px; padding: 0 18px; gap: 16px; }
+  .logo { font-weight: 900; letter-spacing: .5px; font-size: 18px; }
+  .logo span { color: var(--accent); text-shadow: 0 0 14px var(--accent); }
+  nav ul { display: flex; gap: 6px; list-style: none; font-size: 14px; font-weight: 500; }
+  nav ul a { display: block; padding: 8px 14px; border-radius: 10px; color: var(--muted); transition: color .2s, background .2s; }
+  nav ul a:hover, nav ul a.active { color: #fff; background: rgba(229,9,20,.16); }
+
+  /* ===== buttons ===== */
+  .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 28px; border-radius: 14px; font: inherit; font-weight: 700; font-size: 15px; cursor: pointer; border: none; color: #fff; overflow: hidden; isolation: isolate; transition: transform .25s var(--ease), box-shadow .25s; will-change: transform; }
+  .btn::after { content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-20deg); transition: left .7s var(--ease); z-index: -1; }
+  .btn:hover::after { left: 140%; }
+  .btn svg { width: 18px; height: 18px; flex: none; transition: transform .25s var(--ease); }
+  .btn:hover svg { transform: translateX(4px); }
+  html[dir="rtl"] .btn:hover svg { transform: translateX(-4px); }
+  .btn.primary { background: linear-gradient(135deg, #ff2a36, var(--deep)); box-shadow: 0 8px 28px rgba(229,9,20,.45), inset 0 1px 0 rgba(255,255,255,.35); }
+  .btn.primary:hover { box-shadow: 0 12px 40px rgba(229,9,20,.7), inset 0 1px 0 rgba(255,255,255,.4); }
+  .btn.ghost { background: rgba(255,255,255,.04); border: 1px solid transparent; background-clip: padding-box; backdrop-filter: blur(8px); }
+  .btn.ghost::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: conic-gradient(from var(--ang, 0deg), transparent 0 60%, var(--accent2), transparent 85%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: rot 4s linear infinite; z-index: -1; }
+  @property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+  @keyframes rot { to { --ang: 360deg; } }
+  .btn.ghost:hover { background: rgba(229,9,20,.12); }
+  .btn:active { transform: scale(.96); }
+  .ripple { position: absolute; border-radius: 50%; background: rgba(255,255,255,.45); transform: scale(0); animation: rip .65s ease-out; pointer-events: none; }
+  @keyframes rip { to { transform: scale(4); opacity: 0; } }
+  .lang { padding: 9px 18px; font-size: 13px; border-radius: 999px; }
+  .btns { margin-top: 38px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* ===== hero ===== */
+  .hero { min-height: 100vh; display: grid; place-items: center; text-align: center; padding: 140px 0 90px; position: relative; }
+  .badge { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; border-radius: 999px; border: 1px solid rgba(229,9,20,.35); background: rgba(229,9,20,.08); font-size: 13px; font-weight: 600; color: #ffc9c9; backdrop-filter: blur(8px); }
+  .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #3dff7a; box-shadow: 0 0 0 0 rgba(61,255,122,.7); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(61,255,122,0); } 100% { box-shadow: 0 0 0 0 rgba(61,255,122,0); } }
+  .hero h1 { margin-top: 26px; font-size: clamp(52px, 11vw, 124px); line-height: 1.02; font-weight: 900; letter-spacing: -3px;
+    background: linear-gradient(100deg, #fff 0%, #ffd5d5 30%, #ff3b3b 60%, #fff 100%); background-size: 250% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 7s linear infinite; filter: drop-shadow(0 0 30px rgba(229,9,20,.4)); }
+  html[lang="ar"] .hero h1 { letter-spacing: 0; }
+  @keyframes shine { to { background-position: 250% center; } }
+  .role { margin-top: 18px; font-size: clamp(17px, 3vw, 26px); color: #ffd0d0; font-family: "JetBrains Mono", ui-monospace, Consolas, monospace; min-height: 1.8em; }
+  .role::after { content: ""; display: inline-block; width: 2px; height: 1.1em; background: var(--accent2); margin: 0 4px; vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0 } }
+  .lead { max-width: 660px; margin: 22px auto 0; color: #e8d2d2; font-size: 17px; }
+  .scroll { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); width: 26px; height: 42px; border: 2px solid rgba(255,255,255,.3); border-radius: 20px; }
+  .scroll::after { content: ""; position: absolute; top: 8px; left: 50%; width: 4px; height: 8px; margin-left: -2px; border-radius: 4px; background: var(--accent2); animation: wheel 1.8s infinite; }
+  @keyframes wheel { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(16px); } }
+
+  /* ===== sections ===== */
+  section { padding: 110px 0; position: relative; }
+  .eyebrow { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--accent2); letter-spacing: 2px; text-transform: uppercase; }
+  h2 { font-size: clamp(30px, 5vw, 48px); font-weight: 900; margin-top: 8px; letter-spacing: -1px; line-height: 1.15; }
+  h2::after { content: ""; display: block; width: 64px; height: 4px; border-radius: 4px; margin-top: 16px; background: linear-gradient(90deg, var(--accent), transparent); box-shadow: 0 0 16px var(--accent); }
+  html[dir="rtl"] h2::after { background: linear-gradient(270deg, var(--accent), transparent); }
+  .sub { color: var(--muted); margin: 18px 0 44px; font-size: 17px; }
+
+  .glass { background: var(--card); border: 1px solid var(--line); border-radius: 22px; backdrop-filter: blur(14px) saturate(130%); -webkit-backdrop-filter: blur(14px) saturate(130%); box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+  .grid { display: grid; gap: 20px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+
+  .card { position: relative; padding: 30px; transform-style: preserve-3d; transition: transform .25s var(--ease), border-color .3s, box-shadow .3s; will-change: transform; overflow: hidden; }
+  .card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(229,9,20,.22), transparent 45%); opacity: 0; transition: opacity .3s; pointer-events: none; }
+  .card:hover { border-color: rgba(229,9,20,.55); box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 40px rgba(229,9,20,.18); }
+  .card:hover::before { opacity: 1; }
+  .ico { width: 56px; height: 56px; display: grid; place-items: center; font-size: 26px; border-radius: 16px; margin-bottom: 18px; background: linear-gradient(135deg, rgba(229,9,20,.3), rgba(229,9,20,.05)); border: 1px solid rgba(229,9,20,.35); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
+  .card h3 { font-size: 20px; margin-bottom: 8px; }
+  .card p { color: var(--muted); font-size: 15px; }
+  .tags { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tags span { font-family: "JetBrains Mono", monospace; font-size: 12px; padding: 5px 12px; border-radius: 999px; background: rgba(0,0,0,.35); border: 1px solid var(--line); color: #f0c4c6; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px; margin-bottom: 44px; }
+  .stat { padding: 28px 18px; text-align: center; }
+  .stat b { display: block; font-size: 44px; font-weight: 900; line-height: 1.1; background: linear-gradient(180deg, #fff, var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat small { color: var(--muted); font-size: 14px; }
+
+  .about-text { max-width: 780px; color: var(--muted); font-size: 17px; }
+  .skills { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+  .skills span { padding: 10px 20px; border-radius: 12px; font-weight: 600; font-size: 14px; background: rgba(255,255,255,.04); border: 1px solid var(--line); transition: transform .2s var(--ease), border-color .2s, box-shadow .2s, background .2s; cursor: default; }
+  .skills span:hover { transform: translateY(-4px); border-color: var(--accent); background: rgba(229,9,20,.14); box-shadow: 0 8px 24px rgba(229,9,20,.25); }
+
+  /* marquee */
+  .marquee { overflow: hidden; border-block: 1px solid var(--line); padding: 20px 0; background: rgba(0,0,0,.3); -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); direction: ltr; position: relative; z-index: 2; }
+  .marquee .track { display: flex; gap: 56px; width: max-content; animation: slide 30s linear infinite; font-weight: 800; font-size: 22px; color: rgba(255,255,255,.28); letter-spacing: 1px; }
+  .marquee .track span::before { content: "✦"; color: var(--accent); margin-right: 56px; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* live GitHub */
+  .gh-head { margin: 64px 0 22px; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .gh-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+  .chip { padding: 7px 14px; border-radius: 999px; font-size: 13px; color: var(--muted); background: rgba(255,255,255,.04); border: 1px solid var(--line); }
+  .chip b { color: #fff; font-weight: 800; }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .repo { display: flex; flex-direction: column; padding: 24px; }
+  .repo h4 { font-size: 18px; margin-bottom: 8px; word-break: break-word; }
+  .repo p { color: var(--muted); font-size: 14px; flex: 1; }
+  .repo .foot { margin-top: 16px; display: flex; gap: 14px; align-items: center; font-size: 13px; color: #f0c4c6; font-family: "JetBrains Mono", monospace; flex-wrap: wrap; }
+  .repo .lg::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); margin-inline-end: 6px; box-shadow: 0 0 8px var(--accent); }
+  .skeleton { min-height: 150px; background: linear-gradient(100deg, rgba(255,255,255,.03) 30%, rgba(229,9,20,.12) 50%, rgba(255,255,255,.03) 70%); background-size: 200% 100%; animation: sk 1.4s linear infinite; }
+  @keyframes sk { to { background-position: -200% 0; } }
+  .gh-note { margin-top: 18px; color: var(--muted); }
+  .gh-note a { color: var(--accent2); text-decoration: underline; }
+
+  .contact { text-align: center; }
+  .contact h2::after { margin-left: auto; margin-right: auto; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+  .cta { padding: 64px 28px; position: relative; overflow: hidden; }
+  .cta::before { content: ""; position: absolute; inset: -50%; background: conic-gradient(from 0deg, transparent, rgba(229,9,20,.25), transparent 35%); animation: spin 9s linear infinite; }
+  .cta > * { position: relative; }
+  footer { position: relative; z-index: 2; text-align: center; padding: 34px 0 40px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(34px); filter: blur(6px); transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
+  .reveal.in { opacity: 1; transform: none; filter: none; }
+
+  @media (max-width: 760px) { nav ul { display: none; } .cursor-glow { display: none; } section { padding: 80px 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: .001s !important; }
+    .reveal { opacity: 1; transform: none; filter: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="ring"></div></div>
+<div id="progress"></div>
+<div class="aurora"><i></i><i></i><i></i></div>
+<canvas id="bg"></canvas>
+<div class="grain"></div>
+<div class="vignette"></div>
+<div class="cursor-glow" id="glow"></div>
+
+<nav id="nav">
+  <div class="in">
+    <a class="logo" href="#top">ali<span>.</span>dev</a>
+    <ul>
+      <li><a href="#about"><span data-en>About</span><span data-ar>نبذة</span></a></li>
+      <li><a href="#services"><span data-en>Services</span><span data-ar>الخدمات</span></a></li>
+      <li><a href="#work"><span data-en>Work</span><span data-ar>الأعمال</span></a></li>
+      <li><a href="#contact"><span data-en>Contact</span><span data-ar>تواصل</span></a></li>
+    </ul>
+    <button class="btn ghost lang" id="langBtn" type="button" aria-label="Switch language">عربي</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="badge reveal"><i class="dot"></i><span data-en>Available for new opportunities</span><span data-ar>متاح لفرص جديدة</span></span>
+    <h1 class="reveal" style="--d:.1s"><span data-en>Ali Qasim</span><span data-ar>علي قاسم</span></h1>
+    <div class="role reveal" style="--d:.2s" id="role"></div>
+    <p class="lead reveal" style="--d:.3s">
+      <span data-en>Computer Science &amp; IT graduate from Medina, Saudi Arabia. I build backend systems, APIs and automation that businesses depend on.</span>
+      <span data-ar>خريج علوم الحاسب وتقنية المعلومات من المدينة المنورة. أبني أنظمة Backend وواجهات API وأتمتة تعتمد عليها الشركات.</span>
+    </p>
+    <div class="btns reveal" style="--d:.4s">
+      <a class="btn primary magnetic" href="#work"><span data-en>View my work</span><span data-ar>شاهد أعمالي</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn ghost magnetic" href="#contact"><span data-en>Get in touch</span><span data-ar>تواصل معي</span></a>
+      <a class="btn ghost magnetic" href="https://github.com/aliqasimnasser1-afk" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a10.9 10.9 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
+    </div>
+  </div>
+  <div class="scroll" aria-hidden="true"></div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>PYTHON</span><span>BACKEND</span><span>REST APIs</span><span>DOCKER</span><span>AUTOMATION</span><span>LINUX</span><span>SYSTEM DESIGN</span><span>GIT</span>
+    <span>PYTHON</span><span>BACKEND</span><span>REST APIs</span><span>DOCKER</span><span>AUTOMATION</span><span>LINUX</span><span>SYSTEM DESIGN</span><span>GIT</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">// 01</div>
+      <h2><span data-en>About me</span><span data-ar>نبذة عني</span></h2>
+      <p class="sub"><span data-en>Clean code, solid architecture, steady delivery.</span><span data-ar>كود نظيف، هندسة متينة، وتسليم مستمر.</span></p>
+    </div>
+    <div class="stats">
+      <div class="glass stat reveal"><b data-count="580" data-suffix="+">0</b><small><span data-en>contributions / year</span><span data-ar>مساهمة في السنة</span></small></div>
+      <div class="glass stat reveal" style="--d:.08s"><b data-count="4">0</b><small><span data-en>business platforms</span><span data-ar>منصات أعمال</span></small></div>
+      <div class="glass stat reveal" style="--d:.16s"><b data-count="200" data-suffix="+">0</b><small><span data-en>PRs merged in a month</span><span data-ar>PR مدموج في شهر</span></small></div>
+      <div class="glass stat reveal" style="--d:.24s"><b>B.Sc.</b><small><span data-en>Computer Science &amp; IT</span><span data-ar>علوم الحاسب وتقنية المعلومات</span></small></div>
+    </div>
+    <p class="about-text reveal">
+      <span data-en>I focus on backend development, system architecture and performance, and I am deepening my knowledge of DevOps and cloud infrastructure. I work in a pull-request driven team workflow and enjoy turning real business needs into maintainable software.</span>
+      <span data-ar>أركّز على تطوير الـ Backend وهندسة الأنظمة والأداء، وأتعمّق حاليًا في DevOps والبنية السحابية. أعمل ضمن فريق بآلية Pull Requests، وأستمتع بتحويل احتياجات الأعمال الحقيقية إلى برمجيات قابلة للصيانة.</span>
+    </p>
+    <h3 class="reveal" style="margin:44px 0 0;font-size:22px"><span data-en>Tech stack</span><span data-ar>التقنيات</span></h3>
+    <div class="skills reveal">
+      <span>Python</span><span>JavaScript</span><span>HTML5</span><span>CSS3</span><span>C</span>
+      <span>Git &amp; GitHub</span><span>Docker</span><span>Linux</span><span>REST APIs</span><span>aiogram</span>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">// 02</div>
+      <h2><span data-en>What I offer</span><span data-ar>ما أقدمه</span></h2>
+      <p class="sub"><span data-en>Practical engineering for real products.</span><span data-ar>هندسة عملية لمنتجات حقيقية.</span></p>
+    </div>
+    <div class="grid g4">
+      <div class="glass card tilt reveal"><div class="ico">🔌</div>
+        <h3><span data-en>REST APIs</span><span data-ar>واجهات REST API</span></h3>
+        <p><span data-en>Clean, secure and well-structured backends.</span><span data-ar>أنظمة خلفية نظيفة وآمنة ومنظمة.</span></p></div>
+      <div class="glass card tilt reveal" style="--d:.08s"><div class="ico">🤖</div>
+        <h3><span data-en>Telegram bots</span><span data-ar>بوتات تيليجرام</span></h3>
+        <p><span data-en>Fast bots with Python and aiogram.</span><span data-ar>بوتات سريعة بـ Python وaiogram.</span></p></div>
+      <div class="glass card tilt reveal" style="--d:.16s"><div class="ico">⚙️</div>
+        <h3><span data-en>Automation</span><span data-ar>الأتمتة</span></h3>
+        <p><span data-en>Scripts and workflows that save hours.</span><span data-ar>سكربتات وعمليات توفر ساعات من العمل.</span></p></div>
+      <div class="glass card tilt reveal" style="--d:.24s"><div class="ico">🐳</div>
+        <h3><span data-en>Dockerized apps</span><span data-ar>تطبيقات Docker</span></h3>
+        <p><span data-en>Easy to ship, easy to run anywhere.</span><span data-ar>سهلة النشر والتشغيل في أي مكان.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">// 03</div>
+      <h2><span data-en>Featured work</span><span data-ar>أعمال مختارة</span></h2>
+      <p class="sub"><span data-en>A selection of what I build.</span><span data-ar>نماذج مما أبنيه.</span></p>
+    </div>
+    <div class="grid g2">
+      <div class="glass card tilt reveal">
+        <div class="ico">🏢</div>
+        <h3><span data-en>Business platforms</span><span data-ar>منصات الأعمال</span></h3>
+        <p><span data-en>Modular enterprise systems built in a team: authentication, HR management, financial module and cars/fleet management.</span>
+           <span data-ar>أنظمة مؤسسية معيارية بُنيت ضمن فريق: المصادقة، إدارة الموارد البشرية، الوحدة المالية، وإدارة السيارات والأسطول.</span></p>
+        <div class="tags"><span>API design</span><span>Role-based access</span><span>PR workflow</span></div>
+      </div>
+      <div class="glass card tilt reveal" style="--d:.1s">
+        <div class="ico">🎬</div>
+        <h3>VeloTok</h3>
+        <p><span data-en>Fast Telegram bot that downloads public TikTok videos, audio and photo posts.</span>
+           <span data-ar>بوت تيليجرام سريع لتنزيل فيديوهات وصوتيات وصور تيك توك العامة.</span></p>
+        <div class="tags"><span>Python</span><span>aiogram</span><span>yt-dlp</span><span>Docker</span></div>
+      </div>
+    </div>
+
+    <div class="reveal gh-head">
+      <h3 style="font-size:22px"><span data-en>Latest on GitHub</span><span data-ar>آخر ما نشرته على GitHub</span></h3>
+      <div class="gh-meta">
+        <span class="chip"><b id="ghRepos">–</b> <span data-en>public repos</span><span data-ar>مشروع عام</span></span>
+        <span class="chip"><b id="ghFollowers">–</b> <span data-en>followers</span><span data-ar>متابع</span></span>
+        <span class="chip"><b id="ghStars">–</b> <span data-en>stars</span><span data-ar>نجمة</span></span>
+      </div>
+    </div>
+    <div class="grid g3" id="ghGrid" aria-live="polite">
+      <div class="glass card skeleton"></div><div class="glass card skeleton"></div><div class="glass card skeleton"></div>
+    </div>
+    <p class="gh-note" id="ghNote" hidden>
+      <span data-en>Couldn't load repositories right now. See them on </span><span data-ar>تعذر تحميل المشاريع الآن. شاهدها على </span><a href="https://github.com/aliqasimnasser1-afk?tab=repositories" target="_blank" rel="noopener">GitHub</a>.
+    </p>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="glass cta reveal">
+      <div class="eyebrow">// 04</div>
+      <h2><span data-en>Let's work together</span><span data-ar>لنعمل معًا</span></h2>
+      <p class="sub" style="margin-bottom:0"><span data-en>Open to collaboration, feedback and new opportunities.</span><span data-ar>منفتح على التعاون والملاحظات والفرص الجديدة.</span></p>
+      <div class="btns">
+        <a class="btn primary magnetic" href="mailto:aliqasimnasser1@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>aliqasimnasser1@gmail.com</a>
+        <a class="btn ghost magnetic" href="https://github.com/aliqasimnasser1-afk" target="_blank" rel="noopener">github.com/aliqasimnasser1-afk</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="y"></span> <span data-en>Ali Qasim · Medina, Saudi Arabia</span><span data-ar>علي قاسم · المدينة المنورة، السعودية</span></footer>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const root = document.documentElement;
+
+  /* preloader */
+  addEventListener("load", () => setTimeout(() => $("#loader").classList.add("done"), 350));
+  setTimeout(() => $("#loader").classList.add("done"), 2500);
+
+  /* ===== language + typing ===== */
+  const roles = {
+    en: ["Backend Engineer", "Full-Stack Developer", "Automation Builder", "Python & Docker"],
+    ar: ["مهندس Backend", "مطوّر Full-Stack", "بنّاء أتمتة", "Python و Docker"]
+  };
+  const roleEl = $("#role"), btn = $("#langBtn");
+  let lang = "en", ri = 0, rj = 0, del = false, timer;
+  function tick() {
+    const w = roles[lang][ri];
+    roleEl.textContent = w.slice(0, rj);
+    if (!del && rj === w.length) { del = true; timer = setTimeout(tick, 1500); return; }
+    if (del && rj === 0) { del = false; ri = (ri + 1) % roles[lang].length; }
+    rj += del ? -1 : 1;
+    timer = setTimeout(tick, del ? 38 : 75);
+  }
+  function setLang(next) {
+    lang = next; root.lang = next; root.dir = next === "ar" ? "rtl" : "ltr";
+    btn.textContent = next === "ar" ? "English" : "عربي";
+    try { localStorage.setItem("lang", next); } catch (e) {}
+    clearTimeout(timer); ri = rj = 0; del = false; tick();
+  }
+  btn.addEventListener("click", () => setLang(lang === "en" ? "ar" : "en"));
+  let saved = null; try { saved = localStorage.getItem("lang"); } catch (e) {}
+  setLang(saved || ((navigator.language || "").toLowerCase().startsWith("ar") ? "ar" : "en"));
+  $("#y").textContent = new Date().getFullYear();
+
+  /* ===== particle network ===== */
+  const cv = $("#bg"), ctx = cv.getContext("2d");
+  let W, H, DPR, pts = [], mouse = { x: -9999, y: -9999 }, run = true;
+  function size() {
+    DPR = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * DPR; cv.height = H * DPR; cv.style.width = W + "px"; cv.style.height = H + "px";
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    const n = Math.min(110, Math.floor((W * H) / 14000));
+    pts = Array.from({ length: n }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35,
+      r: Math.random() * 1.6 + .6
+    }));
+  }
+  const LINK = 140, PULL = 170;
+  function frame() {
+    if (!run) return;
+    ctx.clearRect(0, 0, W, H);
+    for (const p of pts) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < -20) p.x = W + 20; else if (p.x > W + 20) p.x = -20;
+      if (p.y < -20) p.y = H + 20; else if (p.y > H + 20) p.y = -20;
+      const dx = mouse.x - p.x, dy = mouse.y - p.y, d = Math.hypot(dx, dy);
+      if (d < PULL) { p.x += dx * .012; p.y += dy * .012; }
+    }
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i];
+      for (let j = i + 1; j < pts.length; j++) {
+        const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < LINK) {
+          ctx.strokeStyle = `rgba(255,59,59,${(1 - d / LINK) * .38})`;
+          ctx.lineWidth = .8;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+      const md = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+      if (md < PULL) {
+        ctx.strokeStyle = `rgba(255,255,255,${(1 - md / PULL) * .5})`;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+      }
+      ctx.fillStyle = "rgba(255,90,90,.9)";
+      ctx.shadowColor = "#e50914"; ctx.shadowBlur = 10;
+      ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.2832); ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+    requestAnimationFrame(frame);
+  }
+  size();
+  addEventListener("resize", size);
+  addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  addEventListener("mouseleave", () => { mouse.x = mouse.y = -9999; });
+  document.addEventListener("visibilitychange", () => { run = !document.hidden; if (run && !reduce) frame(); });
+  if (!reduce) frame();
+
+  /* cursor glow (smooth follow) */
+  const glow = $("#glow"); let gx = innerWidth / 2, gy = innerHeight / 2, tx = gx, ty = gy;
+  addEventListener("mousemove", e => { tx = e.clientX; ty = e.clientY; });
+  (function g() { gx += (tx - gx) * .08; gy += (ty - gy) * .08; glow.style.transform = `translate(${gx}px,${gy}px)`; requestAnimationFrame(g); })();
+
+  /* scroll: progress, nav, active link */
+  const nav = $("#nav"), bar = $("#progress");
+  const links = $$("nav ul a"), secs = links.map(a => $(a.getAttribute("href")));
+  function onScroll() {
+    const h = document.documentElement;
+    bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%";
+    nav.classList.toggle("scrolled", h.scrollTop > 30);
+    let cur = -1; secs.forEach((s, i) => { if (s.getBoundingClientRect().top < innerHeight * .4) cur = i; });
+    links.forEach((a, i) => a.classList.toggle("active", i === cur));
+  }
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  /* reveal + counters */
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add("in"); io.unobserve(e.target);
+    $$("[data-count]", e.target).forEach(count);
+  }), { threshold: .15 });
+  $$(".reveal").forEach(el => io.observe(el));
+  function count(el) {
+    if (el.dataset.done) return; el.dataset.done = 1;
+    const to = +el.dataset.count, suf = el.dataset.suffix || "", t0 = performance.now(), dur = 1600;
+    (function s(t) {
+      const k = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - k, 4);
+      el.textContent = Math.round(to * e) + suf;
+      if (k < 1) requestAnimationFrame(s);
+    })(t0);
+  }
+
+  /* live GitHub data (public repos only) */
+  const USER = "aliqasimnasser1-afk", TTL = 10 * 60 * 1000;
+  async function ghGet(path) {
+    const key = "gh:" + path;
+    try {
+      const c = JSON.parse(sessionStorage.getItem(key) || "null");
+      if (c && Date.now() - c.t < TTL) return c.d;
+    } catch (e) {}
+    const r = await fetch("https://api.github.com" + path, { headers: { Accept: "application/vnd.github+json" } });
+    if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), d })); } catch (e) {}
+    return d;
+  }
+  function repoCard(r, i) {
+    const a = document.createElement("a");
+    a.className = "glass card repo tilt reveal in"; a.href = r.html_url; a.target = "_blank"; a.rel = "noopener";
+    a.style.setProperty("--d", (i * .06) + "s");
+    const h = document.createElement("h4"); h.textContent = r.name;
+    const p = document.createElement("p"); p.textContent = r.description || "—";
+    const f = document.createElement("div"); f.className = "foot";
+    if (r.language) { const l = document.createElement("span"); l.className = "lg"; l.textContent = r.language; f.appendChild(l); }
+    const s = document.createElement("span"); s.textContent = "★ " + r.stargazers_count; f.appendChild(s);
+    a.append(h, p, f);
+    hookCard(a);
+    return a;
+  }
+  (async () => {
+    const grid = $("#ghGrid");
+    try {
+      const [u, repos] = await Promise.all([
+        ghGet("/users/" + USER),
+        ghGet("/users/" + USER + "/repos?per_page=100&sort=pushed")
+      ]);
+      const own = repos.filter(r => !r.fork && r.name.toLowerCase() !== USER && r.name.toLowerCase() !== USER + ".github.io")
+                       .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+      $("#ghRepos").textContent = u.public_repos;
+      $("#ghFollowers").textContent = u.followers;
+      $("#ghStars").textContent = repos.reduce((n, r) => n + r.stargazers_count, 0);
+      grid.replaceChildren(...own.slice(0, 6).map(repoCard));
+      if (!own.length) { grid.replaceChildren(); $("#ghNote").hidden = false; }
+    } catch (e) {
+      grid.replaceChildren(); $("#ghNote").hidden = false;
+    }
+  })();
+
+  /* card spotlight + 3D tilt */
+  function hookCard(c) {
+    c.addEventListener("mousemove", e => {
+      const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      c.style.setProperty("--mx", x + "px"); c.style.setProperty("--my", y + "px");
+      if (c.classList.contains("tilt") && !reduce) {
+        const rx = ((y / r.height) - .5) * -8, ry = ((x / r.width) - .5) * 8;
+        c.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+      }
+    });
+    c.addEventListener("mouseleave", () => { c.style.transform = ""; });
+  }
+  $$(".card").forEach(hookCard);
+
+  /* magnetic buttons + ripple */
+  $$(".magnetic").forEach(b => {
+    if (!reduce) {
+      b.addEventListener("mousemove", e => {
+        const r = b.getBoundingClientRect();
+        b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .18}px, ${(e.clientY - r.top - r.height / 2) * .28}px)`;
+      });
+      b.addEventListener("mouseleave", () => { b.style.transform = ""; });
+    }
+  });
+  $$(".btn").forEach(b => b.addEventListener("click", e => {
+    const r = b.getBoundingClientRect(), d = Math.max(r.width, r.height);
+    const s = document.createElement("span"); s.className = "ripple";
+    s.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX - r.left - d / 2}px;top:${e.clientY - r.top - d / 2}px`;
+    b.appendChild(s); setTimeout(() => s.remove(), 700);
+  }));
+})();
+</script>
+</body>
+</html>
